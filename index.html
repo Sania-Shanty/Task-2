@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sania Shanty - Animated Resume</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap" />
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #333333;
+      --accent-color: #7e22ce;
+      --card-bg: #f3e8ff;
+      --shadow-color: rgba(126, 34, 206, 0.1);
+    }
+
+    body.dark-mode {
+      --bg-color: #121212;
+      --text-color: #c792ea;
+      --accent-color: #bb86fc;
+      --card-bg: #2f2f2f;
+      --shadow-color: rgba(187, 134, 252, 0.2);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      scroll-behavior: smooth;
+      line-height: 1.6;
+      transition: background-color 0.4s, color 0.4s;
+    }
+
+    header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      background-color: var(--card-bg);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 4px 10px var(--shadow-color);
+    }
+
+    header h1 {
+      color: var(--accent-color);
+      font-size: 2rem;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+
+    nav ul li a {
+      color: var(--text-color);
+      text-decoration: none;
+      transition: color 0.3s;
+      font-weight: bold;
+    }
+
+    nav ul li a:hover {
+      color: var(--accent-color);
+    }
+
+    .toggle-btn {
+      background: none;
+      border: 2px solid var(--accent-color);
+      color: var(--accent-color);
+      padding: 0.4rem 0.8rem;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-left: 1rem;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .toggle-btn:hover {
+      background: var(--accent-color);
+      color: white;
+    }
+
+    section {
+      padding: 120px 20px 100px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero-img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 6px solid var(--accent-color);
+      box-shadow: 0 0 30px var(--shadow-color);
+      object-fit: cover;
+      margin-top: 30px;
+      margin-bottom: 1.5rem;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--accent-color);
+    }
+
+    p, li {
+      max-width: 800px;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    ul {
+      padding: 0;
+      list-style-type: none;
+    }
+
+    li {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 1.2rem;
+      margin: 0.5rem auto;
+      box-shadow: 0 0 15px var(--shadow-color);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      max-width: 900px;
+      margin-top: 2rem;
+    }
+
+    .skills-grid li {
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 2rem auto;
+    }
+
+    .timeline::after {
+      content: '';
+      position: absolute;
+      width: 6px;
+      background-color: var(--accent-color);
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -3px;
+    }
+
+    .timeline-item {
+      padding: 1rem;
+      position: relative;
+      width: 50%;
+    }
+
+    .timeline-item.left {
+      left: 0;
+    }
+
+    .timeline-item.right {
+      left: 50%;
+    }
+
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      right: -10px;
+      background-color: var(--accent-color);
+      border: 4px solid #fff;
+      top: 15px;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .timeline-item.right::after {
+      left: -10px;
+    }
+
+    .timeline-content {
+      background-color: var(--card-bg);
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 0 15px var(--shadow-color);
+    }
+
+    footer {
+      background: var(--card-bg);
+      text-align: center;
+      padding: 1.5rem;
+      font-weight: bold;
+      color: var(--text-color);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Sania Shanty</h1>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="toggle-btn" onclick="toggleDarkMode()">Dark</button>
+  </header>
+
+  <section id="about">
+    <img src="s.jpg" alt="Sania Shanty" class="hero-img" />
+    <h2>About Me</h2>
+    <p>I am a Computer Science undergraduate at South Asian University, passionate about coding, design, and real-world problem solving. I’ve participated in GitHub and open-source workshops and enjoy working in collaborative environments. I aspire to contribute meaningfully to the tech community while continuously developing my skills and building impactful projects.</p>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <ul>
+      <li>🌐 Personal Portfolio Website - Designed a sleek, responsive resume website using HTML, CSS, and JavaScript.</li>
+      <li>📊 E-commerce Directory Management System - Built using C and hash tables for efficient CRUD operations on large datasets.</li>
+    </ul>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <ul class="skills-grid">
+      <li>⚙️ Python</li>
+      <li>💻 Web Development</li>
+      <li>📈 Data Structures</li>
+      <li>🧠 Algorithms</li>
+      <li>🔧 Git & GitHub</li>
+      <li>🎤 Public Speaking</li>
+      <li>🗣️ Communication Skills</li>
+      <li>👥 Leadership</li>
+    </ul>
+  </section>
+
+  <section id="experience">
+    <h2>Experience</h2>
+    <div class="timeline">
+      <div class="timeline-item left">
+        <div class="timeline-content">
+          <h3>SAU ACM Member</h3>
+          <p>Co-hosted GitHub Workshop, led collaborative coding sessions, mentored beginners, and organized open-source awareness campaigns.</p>
+        </div>
+      </div>
+      <div class="timeline-item right">
+        <div class="timeline-content">
+          <h3>Python Tutor</h3>
+          <p>Helped peers grasp Python concepts from basics to advanced topics. Conducted regular sessions and debugging help.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <ul>
+      <li>Email:saniashanty4@gmail.com</li>
+      <li>GitHub: <a href="https://github.com/Sania-Shanty" target="_blank">Github</a></li>
+      <li>LinkedIn: <a href="https://www.linkedin.com/in/sania-shanty-83179b355" target="_blank">Linkedin</a></li>
+    </ul>
+  </section>
+
+  <footer>
+    &copy; 2025 Sania Shanty. All rights reserved.
+  </footer>
+
+  <script>
+    // Animate sections on scroll
+    document.addEventListener('DOMContentLoaded', () => {
+      const sections = document.querySelectorAll('section');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      sections.forEach(section => observer.observe(section));
+    });
+
+    // Toggle dark mode
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+  </script>
+</body>
+</html>
